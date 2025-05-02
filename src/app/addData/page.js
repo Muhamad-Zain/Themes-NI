@@ -1,35 +1,49 @@
 'use client'
 import { addDataToFirebase, login } from "@/components/firebase/initialFirebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from "react"
 
 
 export default function AddData() {
 
-    const [id, setId] = useState('')
+    const [id, setId] = useState('N1-')
     const [loading, setLoading] = useState(false)
     const [params, setParams] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [autentication, setAutentication] = useState(false)
+    const [load, setLoad] = useState(false)
     const [data, setData]= useState({
         name:{nameOne:'',nameTwo:'',namaLengkap:{nameOne:'',nameTwo:''}},
         date:{akad:{date:'',day:'',month:'',time:''},resepsi:{date:'',day:'',month:'',time:''},all:'',years:''},
         location:{akad:{link:'', location:''},resepsi:{link:'', location:''}},
-        gift:{one:{nameBank:'',rek:'',an:''},two:{nameBank:'',rek:'',an:''},tree:{nameBank:'',rek:'',an:''}},
+        gift:{one:{nameBank:'',rek:'',an:''},two:{nameBank:'',rek:'',an:''}},
         parent:{nameOne:'',nameTwo:''},
         sosmed:{mens:{ig:'',facebook:''},grils:{ig:'',facebook:''}},
         expresion:''
 
     })
+
     // console.log(data);
     
 
-  const updateNestedState = (path, value) => {
-    setData(prevData => {
-      const keys = path.split(".");
-      const lastKey = keys.pop();
-      const deepObject = keys.reduce((acc, key) => acc[key] = { ...acc[key] }, prevData);
-      deepObject[lastKey] = value;
-      return { ...prevData };
-    });
-  };
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAutentication(true)
+      }else{
+        setAutentication(false)
+      }
+    })
+    const updateNestedState = (path, value) => {
+      setData(prevData => {
+        const keys = path.split(".");
+        const lastKey = keys.pop();
+        const deepObject = keys.reduce((acc, key) => acc[key] = { ...acc[key] }, prevData);
+        deepObject[lastKey] = value;
+        return { ...prevData };
+      });
+    };
     const handleChange = e => {
         const { name, value } = e.target;
         updateNestedState(name, value);
@@ -42,7 +56,7 @@ export default function AddData() {
           await addDataToFirebase(id,data)
           // setData('')
           setLoading(false)
-          setParams(`https://start-1-ecru.vercel.app/${id}`)
+          setParams(`https://themes-ni.vercel.app/${id}`)
         } catch (error) {
           console.log(error);
           
@@ -51,10 +65,7 @@ export default function AddData() {
         
     }
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [autentication, setAutentication] = useState(false)
-    const [load, setLoad] = useState(false)
+    
     // console.log(email,password);
     
     const handleSubmit = async (e) =>{
@@ -79,7 +90,7 @@ export default function AddData() {
               <>
               <div>
               <h3 className="text-center text-2xl font-serif italic">Add Date to template  start-1</h3>
-              <input className="p-2 rounded-md outline-none mt-10" placeholder="Buat id" onChange={(e) => setId(e.target.value)} required />
+              <input className="p-2 rounded-md outline-none mt-10" value={id}  placeholder="Buat id" onChange={(e) => setId(e.target.value)} required />
               <form onSubmit={handleSend}  className="mb-10">
                   <label className="text-xl italic font-bold">Nama</label>
                   <input type="text" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="name.nameOne"required placeholder="Nama" />
@@ -126,11 +137,6 @@ export default function AddData() {
                   <input type="text" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.two.nameBank" placeholder="Nama Bank" />
                   <input type="number" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.two.rek" placeholder="Nomor Rekening" />
                   <input type="text" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.two.an" placeholder="a.n" />
-                  <p>03</p>
-                  <input type="text" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.tree.nameBank" placeholder="Nama Bank" />
-                  <input type="number" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.tree.rek" placeholder="Nomor Rekening" />
-                  <input type="text" className="p-2  rounded-md outline-none w-full mb-2" onChange={handleChange} name="gift.tree.an" placeholder="a.n" />
-
 
                   <label className="text-xl italic font-bold">Link Sosmed</label>   
                   <p>mens</p>

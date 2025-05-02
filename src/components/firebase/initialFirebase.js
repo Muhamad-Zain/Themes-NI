@@ -24,7 +24,7 @@ const auth = getAuth(app)
 const fetchWeddingData = async (id) => {
     const dbRef = ref(database);
     try {
-        const data = await get(child(dbRef, `/weddings-1/${id}`))
+        const data = await get(child(dbRef, `/weddings-NI-1/${id}`))
         if (data.exists()) {
             return data.val()
         } else {
@@ -39,7 +39,7 @@ const fetchWeddingData = async (id) => {
 const addDataToFirebase = async (id, formData) => {
 
     try {
-      await set(ref(database, `/weddings-1/${id}`), formData);
+      await set(ref(database, `/weddings-NI-1/${id}`), formData);
       console.log("Data successfully added!");
     } catch (error) {
       console.error("Error adding data:", error);

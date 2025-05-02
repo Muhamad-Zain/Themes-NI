@@ -18,39 +18,56 @@ import AnimateSee from "@/animation/animateSee/page";
 
 
 export default function Page6({data, propsid}) {
-    const [load, setLoad] = useState(false)
-    const [load2, setLoad2] = useState(false)
-    const [load3, setLoad3] = useState(false)
-    const [gift, setGift] = useState(false)
+    // const [load, setLoad] = useState(false)
+    // const [load2, setLoad2] = useState(false)
+    // const [load3, setLoad3] = useState(false)
+    // const [gift, setGift] = useState(false)
+    const [status, setStatus] = useState(false)
+    const [status2, setStatus2] = useState(false)
 
-    const buttonCopy = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text)
-            if (text === data?.gift?.one?.rek ) {
-                setLoad(true)
-                setTimeout(() => {
-                    setLoad(false)
-                }, 2000);
-            } else if(text === data?.gift?.two?.rek){
-                setLoad2(true)
-                setTimeout(() => {
-                    setLoad2(false)
-                }, 2000);
-            } else if(text === data?.gift?.tree?.rek){
-                setLoad3(true)
-                setTimeout(() => {
-                   setLoad3(false) 
-                }, 2000);
-            }
+    const copyRekening = (rek) => {
+        navigator.clipboard.writeText(rek)
+        setStatus(true)
+        setTimeout(() => {
+            setStatus(false)
+        }, 2000);
+    }    
+    const copyRekening2 = (rek) => {
+        navigator.clipboard.writeText(rek)
+        setStatus2(true)
+        setTimeout(() => {
+            setStatus(false)
+        }, 2000);
+    }    
 
-        } catch (error) {
+    // const buttonCopy = async (text) => {
+    //     try {
+    //         await navigator.clipboard.writeText(text)
+    //         if (text === data?.gift?.one?.rek ) {
+    //             setLoad(true)
+    //             setTimeout(() => {
+    //                 setLoad(false)
+    //             }, 2000);
+    //         } else if(text === data?.gift?.two?.rek){
+    //             setLoad2(true)
+    //             setTimeout(() => {
+    //                 setLoad2(false)
+    //             }, 2000);
+    //         } else if(text === data?.gift?.tree?.rek){
+    //             setLoad3(true)
+    //             setTimeout(() => {
+    //                setLoad3(false) 
+    //             }, 2000);
+    //         }
+
+    //     } catch (error) {
             
-        }
-    }
+    //     }
+    // }
 
-    const handleGift = () => {
-        setGift(!gift)
-    }
+    // const handleGift = () => {
+    //     setGift(!gift)
+    // }
 
     return(
         <section className={style.bg}>
@@ -113,85 +130,66 @@ export default function Page6({data, propsid}) {
             <div id={propsid}>
             <AnimatedSection>
             {data?.gift?.one === data?.gift?.one ? (
-
             <div className='w-[90%] m-auto bg-black bg-opacity-70 rounded-3xl border-4 border-double  z-10 relative my-32'>
                 <AnimateSee>
                     <div  className='w-[7rem] h-[7rem] bg-white border-4 border-black border-double m-auto rounded-full text-lg p-8 -mt-14'>
                     <FaGift className='text-3xl m-auto' />
                     </div>
-                    <h3 className='text-center font-sans text-white text-3xl mt-10 mb-2'>WEDDING GIFT</h3>
-                    <div className="flex justify-center">
-                    <button 
-                        onClick={handleGift}
-                        className='bg-black text-white border py-2 px-4 rounded-full'>Open Gift
-                    </button>
-                    </div>
-                    <div className={`${gift ? ' max-h-[200rem] opacity-100' : ' max-h-0 opacity-0 '} transition-all duration-500 ease-in-out  overflow-hidden w-full flex flex-wrap justify-around py-5`}>
-
+                    <h3 className='text-center font-sans text-white text-3xl  my-10'>WEDDING GIFT</h3>
+                    
                     <div className='text-center text-white w-2/3 m-auto my-10'>
                         <p>Bagi Keluarga dan Sahabat yang ingin menirimkan hadiah, silakan menirimkannya lewat :</p>
                     </div>
-                    { data?.gift?.one === data?.gift?.one ? (
-                        <div className='w-[90%] m-auto text-white p-2' >
-                        <div className=" bg-white bg-opacity-95 border-4 border-double border-slate-950 rounded-xl ">
-                            <div className="flex items-center pl-5 p-2 pb-3 font-bold italic">
-                                <BiSolidBank className=" text-black text-4xl " />
-                                <h3 className="pl-2 text-3xl text-slate-950">{data?.gift?.one?.nameBank}</h3>
-                            </div>
-                            <div className="m-auto p-2">
-                                <p className="text-slate-900 text-sm italic flex justify-around">{data?.gift?.one.rek}<span> a. n. {data?.gift?.one?.an}</span></p>
-                                <button 
-                                    onClick={() => buttonCopy(data?.gift?.one?.rek)}
-                                    disabled={load? true : false}
-                                    className='w-full py-1 bg-black bg-opacity-80 rounded-lg border flex justify-center items-center'>
-                                    <MdFileCopy className='mr-2' />
-                                    {load ? 'succes' : 'salin'}
-                                </button>
-                            </div>
+                    {data?.gift?.one === data?.gift?.one ?
+                    <div className='w-[90%] m-auto text-white p-2' >
+                    <div className="text-blue-700 bg-white rounded-xl ">
+                        <div className="flex items-centerp-5 p-2 pb-3 font-bold italic">
+                            <BiSolidBank className=" text-4xl " />
+                            <h3 className="pl-2 text-3xl text-slate-950">{data?.gift?.one?.nameBank}</h3>
+                        </div>
+                        <div className="m-auto p-2">
+                            <p className="text-slate-700 text-sm italic px-5">
+                                <span className="font-bold text-lg">{data?.gift?.one?.rek}</span>
+                                <span className="grid text-end"> a. n. {data?.gift?.one?.an}</span>
+                            </p>
+                            <button 
+                            className="flex bg-slate-900 p-1 rounded-lg text-white w-full justify-center items-center my-2 m-auto "
+                            onClick={() => copyRekening(data?.gift?.one?.rek)}
+                            
+                            >
+                                <FaRegCopy />
+                                <p className="pl-2">{status ? 'succes' : 'copy'}</p>
+                            </button>
                         </div>
                     </div>
-                    ): null}
-                    { data?.gift?.two === data?.gift?.two ? (
-                        <div className='w-[90%] m-auto text-white p-2' >
-                        <div className=" bg-white bg-opacity-95 border-4 border-double border-slate-950 rounded-xl ">
-                            <div className="flex items-center pl-5 p-2 pb-3 font-bold italic">
-                                <BiSolidBank className=" text-black text-4xl " />
-                                <h3 className="pl-2 text-3xl text-slate-950">{data?.gift?.two?.nameBank}</h3>
-                            </div>
-                            <div className="m-auto p-2">
-                                <p className="text-slate-900 text-sm italic flex justify-around">{data?.gift?.two.rek}<span> a. n. {data?.gift?.two?.an}</span></p>
-                                <button 
-                                    onClick={() => buttonCopy(data?.gift?.two?.rek)}
-                                    disabled={load2 ? true : false}
-                                    className='w-full py-1 bg-black bg-opacity-80 rounded-lg border flex justify-center items-center'>
-                                    <MdFileCopy className='mr-2' />
-                                    {load2 ? 'succes' : 'salin'}
-                                </button>
-                            </div>
+                    </div>
+                    : null}
+                    {data?.gift?.two === data?.gift?.two ?
+                    <div className='w-[90%] m-auto text-white p-2' >
+                    <div className="text-blue-700 bg-white rounded-xl ">
+                        <div className="flex items-centerp-5 p-2 pb-3 font-bold italic">
+                            <BiSolidBank className=" text-4xl " />
+                            <h3 className="pl-2 text-3xl text-slate-950">{data?.gift?.two?.nameBank}</h3>
+                        </div>
+                        <div className="m-auto p-2">
+                            {/* <p className="text-slate-700 text-sm italic ">{data?.gift?.two?.rek} a. n. {data?.gift?.two?.an}</p> */}
+                            <p className="text-slate-700 text-sm italic px-5">
+                                <span className="font-bold text-lg">{data?.gift?.two?.rek}</span>
+                                <span className="grid text-end"> a. n. {data?.gift?.two?.an}</span>
+                            </p>
+                            <button 
+                            className="flex bg-slate-900 p-1 rounded-lg text-white w-full justify-center items-center my-2 m-auto "
+                            onClick={() => copyRekening2(data?.gift?.two?.rek)}
+                            
+                            >
+                                <FaRegCopy />
+                                <p className="pl-2">{status2 ? 'succes' : 'copy'}</p>
+                            </button>
                         </div>
                     </div>
-                    ): null}
-                    { data?.gift?.one === data?.gift?.tree ? (
-                        <div className='w-[90%] m-auto text-white p-2' >
-                        <div className=" bg-white bg-opacity-95 border-4 border-double border-slate-950 rounded-xl ">
-                            <div className="flex items-center pl-5 p-2 pb-3 font-bold italic">
-                                <BiSolidBank className=" text-black text-4xl " />
-                                <h3 className="pl-2 text-3xl text-slate-950">{data?.gift?.tree?.nameBank}</h3>
-                            </div>
-                            <div className="m-auto p-2">
-                                <p className="text-slate-700 text-sm italic flex justify-around">{data?.gift?.tree.rek}<span> a. n. {data?.gift?.tree?.an}</span></p>
-                                <button 
-                                    onClick={() => buttonCopy(data?.gift?.tree?.rek)}
-                                    disabled={load3 ? true : false}
-                                    className='w-full py-1 bg-black bg-opacity-80 rounded-lg border flex justify-center items-center'>
-                                    <MdFileCopy className='mr-2' />
-                                    {load3 ? 'succes' : 'salin'}
-                                </button>
-                            </div>
-                        </div>
                     </div>
-                    ): null}
-                    </div>
+                    : null}
+                        
                 </AnimateSee>
             </div>
                     ) : null
