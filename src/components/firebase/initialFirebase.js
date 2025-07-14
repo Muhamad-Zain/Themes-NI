@@ -24,11 +24,11 @@ const auth = getAuth(app)
 const fetchWeddingData = async (id) => {
     const dbRef = ref(database);
     try {
-        const data = await get(child(dbRef, `/weddings-NI-1/${id}`))
+        const data = await get(child(dbRef, `weddings-NI-1/${id}`))
         if (data.exists()) {
             return data.val()
         } else {
-            console.log('eror' );
+            console.log('erorr' );
             return null
         }
     } catch (error) {

@@ -22,21 +22,59 @@ import BubbleAnimation from '@/animation/buble/page';
 import Music from '/public/assets/music/melodi.mp3'
 import AnimateSee from '@/animation/animateSee/page';
 
-
-
-
 export default function Hero({id, name}) {
-
-    
     const [weddingData, setWeddingData] = useState([])
-    console.log(weddingData);
-    
     const [isHidden, setIsHidden] = useState(true)
     const [loading, setLoading] = useState(true)
     const [bgToggle, setBgTogle] = useState('bg-black')
     const [visible, setVisible] = useState(false)
 
+    useEffect(() => {
+        const getData = async () => {
+            const data = await fetchWeddingData(id)
+            setWeddingData(data)
+            setLoading(false)
+        }
+        getData()
+        const checkScreen = () => {
+            if(window.innerWidth > 400){
+                setVisible(!visible)
+            }
 
+        } 
+        checkScreen()
+        window.addEventListener('resize', checkScreen)
+        return () => window.removeEventListener('resize', checkScreen)
+    },[id])
+    useEffect(() => {
+
+        // const layOut = window.scrollTo(0,0)
+        const scrollToTop = () => {
+            window.scrollTo({top: 0, left: 0, behavior: 'auto'})
+        }
+        window.addEventListener('load', scrollToTop)
+        window.addEventListener('beforeunload', scrollToTop)
+
+        const handleResize = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`)
+        }
+        handleResize()
+
+        if(isHidden){
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+
+       
+        return() => {
+            document.body.style.overflow = '';
+            window.addEventListener('load', scrollToTop)
+            window.addEventListener('beforeunload', scrollToTop)
+        }
+
+    },[isHidden])
     const togleScroll = (text) => {
         const scrollView = document.getElementById(text)
         if (scrollView) {
@@ -68,46 +106,7 @@ export default function Hero({id, name}) {
           }, 100); 
     }
 
-    useEffect(() => {
-        const getData = async () => {
-            const data = await fetchWeddingData(id)
-            setWeddingData(data)
-            setLoading(false)
-        }
-        getData()
-        const checkScreen = () => {
-            if(window.innerWidth > 400){
-                setVisible(!visible)
-            }
-
-        } 
-        checkScreen()
-        window.addEventListener('resize', checkScreen)
-        return () => window.removeEventListener('resize', checkScreen)
-    },[id])
-    useEffect(() => {
-
-        const layOut = window.scrollTo(0,0)
-
-        const handleResize = () => {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`)
-        }
-        handleResize()
-
-        if(isHidden || layOut){
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = 'auto'
-        }
-
-       
-        return() => {
-            document.body.style.overflow = '';
-
-        }
-
-    },[isHidden])
+    
 
     
     return(

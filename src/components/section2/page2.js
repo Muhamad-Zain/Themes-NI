@@ -13,8 +13,6 @@ export default function Page2 ({data}){
     const [isClient, setIsClient] = useState(false);
     const WeddingDay = data?.date?.all
     const time = data?.date?.time
-    console.log(WeddingDay);
-    
     const wedingDate =  new Date(`${WeddingDay}T00:00:00`)
 
     useEffect(() => {

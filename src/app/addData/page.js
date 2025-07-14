@@ -23,10 +23,6 @@ export default function AddData() {
         expresion:''
 
     })
-
-    // console.log(data);
-    
-
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -54,19 +50,13 @@ export default function AddData() {
         try {
           setLoading(true)
           await addDataToFirebase(id,data)
-          // setData('')
           setLoading(false)
           setParams(`https://themes-ni.vercel.app/${id}`)
         } catch (error) {
           console.log(error);
           
         }
-
-        
     }
-
-    
-    // console.log(email,password);
     
     const handleSubmit = async (e) =>{
       e.preventDefault()
