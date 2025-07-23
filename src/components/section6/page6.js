@@ -3,12 +3,8 @@ import { GiLinkedRings } from "react-icons/gi";
 import { ImLocation2 } from "react-icons/im";
 import { GrLocationPin } from "react-icons/gr";
 import { FaPeopleRoof, FaGift } from "react-icons/fa6";
-import { RiBankCardFill } from "react-icons/ri";
 import { FaRegCopy } from "react-icons/fa";
 import { BiSolidBank } from "react-icons/bi";
-import { MdFileCopy } from "react-icons/md";
-
-
 import style from './style.module.css'
 import Link from "next/link";
 import { useState } from "react";
@@ -16,12 +12,7 @@ import PropTypes from "prop-types";
 import AnimatedSection from "@/animation/animateToUp/animate";
 import AnimateSee from "@/animation/animateSee/page";
 
-
 export default function Page6({data, propsid}) {
-    // const [load, setLoad] = useState(false)
-    // const [load2, setLoad2] = useState(false)
-    // const [load3, setLoad3] = useState(false)
-    // const [gift, setGift] = useState(false)
     const [status, setStatus] = useState(false)
     const [status2, setStatus2] = useState(false)
 
@@ -39,35 +30,6 @@ export default function Page6({data, propsid}) {
             setStatus(false)
         }, 2000);
     }    
-
-    // const buttonCopy = async (text) => {
-    //     try {
-    //         await navigator.clipboard.writeText(text)
-    //         if (text === data?.gift?.one?.rek ) {
-    //             setLoad(true)
-    //             setTimeout(() => {
-    //                 setLoad(false)
-    //             }, 2000);
-    //         } else if(text === data?.gift?.two?.rek){
-    //             setLoad2(true)
-    //             setTimeout(() => {
-    //                 setLoad2(false)
-    //             }, 2000);
-    //         } else if(text === data?.gift?.tree?.rek){
-    //             setLoad3(true)
-    //             setTimeout(() => {
-    //                setLoad3(false) 
-    //             }, 2000);
-    //         }
-
-    //     } catch (error) {
-            
-    //     }
-    // }
-
-    // const handleGift = () => {
-    //     setGift(!gift)
-    // }
 
     return(
         <section className={style.bg}>
@@ -136,7 +98,6 @@ export default function Page6({data, propsid}) {
                     <FaGift className='text-3xl m-auto' />
                     </div>
                     <h3 className='text-center font-sans text-white text-3xl  my-10'>WEDDING GIFT</h3>
-                    
                     <div className='text-center text-white w-2/3 m-auto my-10'>
                         <p>Bagi Keluarga dan Sahabat yang ingin menirimkan hadiah, silakan menirimkannya lewat :</p>
                     </div>

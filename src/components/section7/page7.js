@@ -13,8 +13,6 @@ export default function Page7({id}) {
     const [name, setName] = useState("")
     const [message, setMessage] = useState("")
     const [ucapan, setUcapan] = useState([])
-    // console.log(ucapan);
-    
 
     const handleSend = (e) => {
         e.preventDefault()
@@ -37,8 +35,6 @@ export default function Page7({id}) {
             }
             setUcapan(ucapanList);
         });
-        // return () => unsubscribe()  // Membersihkan listener ketika komponen dibongkar
-
     }, [id]);
     return(
         <section className="bg-[#0c130cfa] py-5  overflow-hidden">
@@ -69,14 +65,12 @@ export default function Page7({id}) {
                             />
                         <button 
                             className={`px-2 py-1  bg-black rounded-md text-white ${message === '' || name === '' ? 'opacity-70' : 'opacity-100'}`}
-                            // onClick={handleSend}
                             disabled ={message === '' || name === '' ? true : false}
                             type='submit'
                             >
                             Kirim
                         </button>
                         <div className='my-5 mx-2 h-[17rem]  border-2 border-double rounded-md p-1  overflow-y-scroll'>
-                            {/* <p>Ucapan seseorang</p> */}
                             {ucapan.map((msg) => (
                                 <p key={msg.id} className='py-1 border-b-2 '>
                                     <strong>{msg.name}:</strong> {msg.text}

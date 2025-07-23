@@ -4,15 +4,12 @@ import style from "./style.module.css"
 import Countdown from 'react-countdown'
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import  PropTypes from 'prop-types'
-// import AnimatedSection from "@/animation/animateToUp/animate";
 import AnimateSee from "@/animation/animateSee/page";
 
-
 export default function Page2 ({data}){
-  
     const [isClient, setIsClient] = useState(false);
     const WeddingDay = data?.date?.all
-    const time = data?.date?.time
+    // const time = data?.date?.time
     const wedingDate =  new Date(`${WeddingDay}T00:00:00`)
 
     useEffect(() => {
@@ -22,7 +19,34 @@ export default function Page2 ({data}){
 const renderer = ({days, hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
-    return (<span>Hari Penikahan Telah Tiba!!</span>);
+    return (
+      <div style={{  fontSize: '2rem', textAlign: 'center' }} className="flex mx-7 p-2 justify-between">
+        <div className="border rounded-lg bg-white bg-opacity-15 w-[4rem] h-[3.5rem]  flex justify-center items-center">
+             <div className="leading-6 text-xl font-bold">
+                00
+                <p className="text-sm">Hari</p>
+             </div>
+        </div>
+        <div className="border rounded-lg bg-white bg-opacity-15 w-[4rem] h-[3.5rem]  flex justify-center items-center">
+             <div className="leading-6 text-xl font-bold">
+                00
+                <p className="text-sm">Jam</p>
+             </div>
+        </div>
+        <div className="border rounded-lg bg-white bg-opacity-15 w-[4rem] h-[3.5rem]  flex justify-center items-center">
+             <div className="leading-6 text-xl font-bold">
+                00
+                <p className="text-sm">menit</p>
+             </div>
+        </div>
+        <div className="border rounded-lg bg-white bg-opacity-15 w-[4rem] h-[3.5rem]  flex justify-center items-center">
+             <div className="leading-6 text-xl font-bold">
+                00
+                <p className="text-sm">Detik</p>
+             </div>
+        </div>
+      </div>
+    );
   } else {
     // Render a countdown
     return (

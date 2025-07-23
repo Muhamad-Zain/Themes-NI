@@ -4,16 +4,12 @@ import ImgMen from '@/assets/img/men.png'
 import ImgGrils from '@/assets/img/grils.png'
 import { GrInstagram } from "react-icons/gr";
 import { RiFacebookCircleLine } from "react-icons/ri";
-
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import AnimateSee from '@/animation/animateSee/page';
 import AnimatedSection from '@/animation/animateToUp/animate';
 
-
-
 export default function Page4({data}){
-    
     return(
         <section className={style.bg} >
             <AnimatedSection>

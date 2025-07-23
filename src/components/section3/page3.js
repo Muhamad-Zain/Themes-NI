@@ -1,9 +1,6 @@
 import AnimatedSection from "@/animation/animateToUp/animate"
-import Animate from "@/animation/animateToUp/animate"
 import ImgAnimation from "@/assets/img/animate/flower.svg"
 import ImgAnimation2 from "@/assets/img/animate/flower1.svg"
-
-
 
 export default function Page3 (){
     return(
